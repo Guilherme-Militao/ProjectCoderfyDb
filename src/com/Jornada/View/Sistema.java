@@ -27,6 +27,7 @@ public class Sistema {
                         2-Entrar em uma conta existente
                         3-sair""");
             opcao = Integer.parseInt(scanner.nextLine()); //variável que recebe a opção escolhida pelo usuário
+
             switch (opcao) { //switch case para executar a opção escolhida no menu
                 case 1 -> { //cria um conta no app Codfy
 
@@ -58,15 +59,14 @@ public class Sistema {
                     //TELA DE MENU DO USUÁRIO LOGADO
                     try{ //tratamento de exeção IndexOutOfBoundsException, pois caso o id passado (que equeivale ao indice) esteja fora do limite da lista o programa não será interrompido
 
-                        System.out.println("Informe seu email:");
-                        String email = scanner.nextLine();
 
                         System.out.println("Informe sua senha");
                         String senha = scanner.nextLine();
 
                         System.out.println("Informe seu id: ");
                         Integer id= Integer.parseInt(scanner.nextLine());
-                        int res = usuarioServices.verificaUsuario( usuarioServices.ListarUsers(),senha,email,id);
+                        int res = usuarioServices.verificaUsuario( usuarioServices.ListarUsers(),senha,id);
+
                         if(res!=0){
                             int op = 0;
                             while (op != 7) {
@@ -76,17 +76,57 @@ public class Sistema {
                                             3- Exibir informações do usuário
                                             4- Criar playlist
                                             5- Excluir playlist
-                                            6- Buscar música
+                                            6- Buscar músicas
                                             7- sair""");
                                 op = Integer.parseInt(scanner.nextLine());
                                 switch (op) {
+
                                     case 1 -> { //Atualizar dados do usuário
+
+                                        System.out.println("Atualizando Dados:");
+                                        Usuario user = new Usuario();
+
+                                        System.out.println("Informe seu nome: ");
+                                        user.setNome(scanner.nextLine());
+
+                                        System.out.println("Informe seu email:");
+                                        user.setEmail(scanner.nextLine());
+
+                                        System.out.println("Informe sua nova senha:");
+                                        user.setSenha(scanner.nextLine());
+
+                                        user.setDataRegistro(new Date());
+                                        user.setId_usuario(id);
+
+                                        try {
+                                            boolean editado = usuarioServices.UpdateUser(user);
+                                            System.out.println("Editado = " + editado);
+
+                                        }catch (Exception e){
+                                            System.err.println(e.getMessage());
+                                        }
 
                                     }
                                     case 2 -> { //Excluir usuário
 
+                                        System.out.println("Deletando Usuario:");
+
+                                        System.out.println("Informe sua senha");
+                                        String confirmaSenha = scanner.nextLine();
+
+                                        if(confirmaSenha.equals(senha)){
+                                            if(usuarioServices.DeleteUser(id))
+                                                System.out.println("Usuario excluido com sucesso!");
+
+                                            op = 7;
+                                        }else{
+                                            System.out.println("Erro");
+                                        }
+
                                     }
                                     case 3 -> { //Exibir informações do usuário
+
+                                        usuarioServices.userDate(id);
 
                                     }
                                     case 4 -> { //Criar playlist
