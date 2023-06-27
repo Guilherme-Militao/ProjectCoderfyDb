@@ -54,16 +54,22 @@ public class Sistema {
                 case 2 -> { //Entra em uma conta que já tenha sido cadastrada
                     //VALICAÇÃO DA CONTA DO USUÁRIO
 
-                    Usuario user = new Usuario();
-
-
 
                     //TELA DE MENU DO USUÁRIO LOGADO
                     try{ //tratamento de exeção IndexOutOfBoundsException, pois caso o id passado (que equeivale ao indice) esteja fora do limite da lista o programa não será interrompido
-                        if(1 == 1){
+
+                        System.out.println("Informe seu email:");
+                        String email = scanner.nextLine();
+
+                        System.out.println("Informe sua senha");
+                        String senha = scanner.nextLine();
+
+                        System.out.println("Informe seu id: ");
+                        Integer id= Integer.parseInt(scanner.nextLine());
+                        int res = usuarioServices.verificaUsuario( usuarioServices.ListarUsers(),senha,email,id);
+                        if(res!=0){
                             int op = 0;
                             while (op != 7) {
-                                System.out.println("Vamos lá! assine nosso plano e seja premium ou crie sua playlist");
                                 System.out.println("""
                                             1- Atualizar dados do usuário
                                             2- Excluir usuário

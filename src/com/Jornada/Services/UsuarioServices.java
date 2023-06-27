@@ -3,6 +3,9 @@ package com.Jornada.Services;
 import com.Jornada.Entity.Usuario;
 import com.Jornada.Repository.UsuarioRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UsuarioServices {
 
 
@@ -29,5 +32,24 @@ public class UsuarioServices {
 
         System.out.println("Usuario cadastrado com Sucesso service");
         return userSalvo;
+    }
+
+    public List<Usuario> ListarUsers(){
+        List<Usuario> lista = usuarioRepository.listarUsuarios();
+        lista.stream().forEach(System.out::println);
+
+        return lista;
+
+    }
+
+    public int verificaUsuario(List<Usuario> listUsers,String senha, String email, Integer id){
+
+        for (Usuario user : listUsers){
+            if(user.getEmail().equalsIgnoreCase(email ) && user.getSenha().equals(senha) && (user.getId_usuario()==id)){
+                return 1;
+            }
+        }
+
+        return 0;
     }
 }

@@ -3,6 +3,8 @@ package com.Jornada.Repository;
 import com.Jornada.Entity.Usuario;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioRepository {
 //teste
@@ -62,6 +64,50 @@ public class UsuarioRepository {
 
             return user;
         }
+    }
+
+    public List<Usuario> listarUsuarios(){
+
+        List<Usuario> listaUsers = new ArrayList<>();
+
+        Connection connection = null;
+
+        try {
+
+            connection = ConexaoDb.getConnection();
+
+            String sql = "select * from Usuario";
+
+            Statement statement = connection.createStatement();
+
+            ResultSet res = statement.executeQuery(sql);
+
+            while(res.next()){
+
+                Usuario user = new Usuario();
+                user.setNome(res.getString("nome"));
+                user.setEmail(res.getString("email"));
+                user.setDataRegistro(res.getDate("data_registro"));
+                user.setSenha(res.getString("senha"));
+                user.setId_usuario(res.getInt("id_usuario"));
+                listaUsers.add(user);
+
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(!connection.isClosed() && connection !=null) connection.close();
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+
+            return listaUsers;
+        }
+
+
     }
 
 }
