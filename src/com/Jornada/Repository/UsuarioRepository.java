@@ -5,6 +5,7 @@ import com.Jornada.Entity.Usuario;
 import java.sql.*;
 
 public class UsuarioRepository {
+//teste
 
     public Usuario CadastrarUser(Usuario user){
 
