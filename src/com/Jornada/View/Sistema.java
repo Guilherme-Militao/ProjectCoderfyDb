@@ -1,14 +1,17 @@
 package com.Jornada.View;
 
+import com.Jornada.Entity.Usuario;
+import com.Jornada.Services.UsuarioServices;
+
+import java.util.Date;
 import java.util.Scanner;
 
 public class Sistema {
 
 
-
     public static void main(String[] args) {
 
-
+        UsuarioServices usuarioServices = new UsuarioServices();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -27,14 +30,37 @@ public class Sistema {
             switch (opcao) { //switch case para executar a opção escolhida no menu
                 case 1 -> { //cria um conta no app Codfy
 
+                    Usuario user = new Usuario();
+
+                    System.out.println("Digite seu nome: ");
+                    user.setNome(scanner.nextLine());
+
+                    System.out.println("Dgite seu email: ");
+                    user.setEmail(scanner.nextLine());
+
+                    System.out.println("Dgite sua senha: ");
+                    user.setSenha(scanner.nextLine());
+
+                    user.setDataRegistro(new Date());
+
+                    try {
+                         Usuario userSalvo = usuarioServices.CadastrarUsuario(user);
+                        System.out.println("Usuario cadastrado com sucesso! com id = "+userSalvo.getId_usuario());
+
+                    }catch (Exception e){
+                        System.err.println(e.getMessage());
+                    }
                 }
                 case 2 -> { //Entra em uma conta que já tenha sido cadastrada
                     //VALICAÇÃO DA CONTA DO USUÁRIO
 
+                    Usuario user = new Usuario();
+
+
 
                     //TELA DE MENU DO USUÁRIO LOGADO
                     try{ //tratamento de exeção IndexOutOfBoundsException, pois caso o id passado (que equeivale ao indice) esteja fora do limite da lista o programa não será interrompido
-                        if(/*verifação de login(email e senha)*/) {
+                        if(1 == 1){
                             int op = 0;
                             while (op != 7) {
                                 System.out.println("Vamos lá! assine nosso plano e seja premium ou crie sua playlist");

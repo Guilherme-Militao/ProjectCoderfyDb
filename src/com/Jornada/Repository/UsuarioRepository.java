@@ -15,7 +15,7 @@ public class UsuarioRepository {
             connection=ConexaoDb.getConnection();
 
             String sql = "insert into Usuario (id_usuario,nome,email,data_registro,senha)"+
-                    "Values (?,?,?,?)";
+                    "Values (?,?,?,?,?)";
 
             String sequence = "select seq_usuario.nextval proxval from DUAL";
 
@@ -38,6 +38,7 @@ public class UsuarioRepository {
             preparedStatement.setString(2, user.getNome());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setDate(4, new Date(user.getDataRegistro().getTime()));
+            preparedStatement.setString(5,user.getSenha());
 
             int retorno = preparedStatement.executeUpdate();
 

@@ -6,9 +6,8 @@ import java.sql.SQLException;
 
 public class ConexaoDb {
 
-
-    private static final String PASS = "oracle";
     private static final String USER = "system";
+    private static final String PASS = "oracle";
 
 
 
@@ -20,8 +19,8 @@ public class ConexaoDb {
     public static Connection getConnection() throws SQLException {
 
         String url = "jdbc:oracle:thin:@" + SERVER + ":" + PORT + ":" + DATABASE;
-        Connection connection = DriverManager.getConnection(url,USER, PASS);
-        connection.createStatement().execute("alter session set current_schema=Jornada");
+        Connection connection = DriverManager.getConnection(url, USER, PASS);
+        connection.createStatement().execute("alter session set current_schema=JORNADA");
 
         return connection;
     }
