@@ -1,9 +1,12 @@
 package com.Jornada.View;
 
+import com.Jornada.Entity.Playlist;
 import com.Jornada.Entity.Usuario;
+import com.Jornada.Services.PlaylistServices;
 import com.Jornada.Services.UsuarioServices;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class Sistema {
@@ -12,6 +15,7 @@ public class Sistema {
     public static void main(String[] args) {
 
         UsuarioServices usuarioServices = new UsuarioServices();
+        PlaylistServices playlistServices = new PlaylistServices();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -75,8 +79,8 @@ public class Sistema {
                                             2- Excluir usuário
                                             3- Exibir informações do usuário
                                             4- Criar playlist
-                                            5- Excluir playlist
-                                            6- Buscar músicas
+                                            5- Listar playlists
+                                            6- Excluir playlist
                                             7- sair""");
                                 op = Integer.parseInt(scanner.nextLine());
                                 switch (op) {
@@ -123,6 +127,7 @@ public class Sistema {
                                             System.out.println("Erro");
                                         }
 
+
                                     }
                                     case 3 -> { //Exibir informações do usuário
 
@@ -131,12 +136,37 @@ public class Sistema {
                                     }
                                     case 4 -> { //Criar playlist
 
+                                        Playlist p= new Playlist();
+
+                                        System.out.println("Digite o nome para playlist:: ");
+                                        p.setNome(scanner.nextLine());
+
+                                        p.setId_usuario(id);
+
+                                        try {
+                                            playlistServices.criarPlaylist(id, p);
+                                            System.out.println("Playlist cadastrado com sucesso!");
+
+                                        }catch (Exception e){
+                                            System.err.println(e.getMessage());
+                                        }
 
                                     }
-                                    case 5->{ //Excluir playlist
+                                    case 5->{ //Listar playlists
+
+                                        playlistServices.ListarPlaylists();
 
                                     }
-                                    case 6->{ //Buscar música
+                                    case 6->{ //Excluir Playlist
+
+                                        playlistServices.ListarPlaylists();
+
+                                            System.out.println("Informe o id da Playlist: ");
+                                            Integer idPlaylist = Integer.parseInt(scanner.nextLine());
+
+                                            if(playlistServices.excluirPlaylist(idPlaylist))
+                                                System.out.println("Playlist excluida com Sucesso! ");
+
 
                                     }
                                     case 7->{ //sair

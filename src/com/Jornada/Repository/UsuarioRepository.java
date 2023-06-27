@@ -46,7 +46,7 @@ public class UsuarioRepository {
             preparedStatement.setDate(4, new Date(user.getDataRegistro().getTime()));
             preparedStatement.setString(5,user.getSenha());
 
-            int retorno = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
 
             user.setId_usuario(idUser);
 
