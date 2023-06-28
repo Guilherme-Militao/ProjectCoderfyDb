@@ -6,7 +6,7 @@ public class Playlist {
 
     private String nome;
 
-    private Integer id_usuario;
+    private Integer idUsuario;
 
 
     public Integer getIdPlaylist() {
@@ -25,12 +25,12 @@ public class Playlist {
         this.nome = nome;
     }
 
-    public Integer getId_usuario() {
-        return id_usuario;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId_usuario(Integer id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
 

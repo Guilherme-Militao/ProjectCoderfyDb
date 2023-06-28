@@ -31,4 +31,13 @@ public class Artista {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
+    @Override
+    public String toString() {
+        return "Artista{" +
+                "idArtista=" + idArtista +
+                ", nome='" + nome + '\'' +
+                ", genero='" + genero + '\'' +
+                '}';
+    }
 }

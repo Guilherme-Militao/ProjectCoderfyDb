@@ -1,7 +1,6 @@
 package com.Jornada.Repository;
 
 import com.Jornada.Entity.Playlist;
-import com.Jornada.Entity.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class PlaylistRepository {
 
             preparedStatement.executeUpdate();
 
-            p.setId_usuario(idM);
+            p.setIdUsuario(idM);
 
             System.out.println("Playlist criada com sucesso: ");
             return p;
@@ -77,10 +76,12 @@ public class PlaylistRepository {
                 Playlist p = new Playlist();
                 p.setNome(res.getString("nome"));
                 p.setIdPlaylist(res.getInt("id_playlist"));
-                p.setId_usuario(res.getInt("id_usuario"));
+                p.setIdUsuario(res.getInt("id_usuario"));
                 listaPlaylists.add(p);
 
             }
+
+            return listaPlaylists;
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -114,6 +115,7 @@ public class PlaylistRepository {
             preparedStatement.setInt(1,id);
 
             preparedStatement.executeUpdate();
+
             return true;
 
         }catch(SQLException e){

@@ -2,18 +2,36 @@ package com.Jornada.Entity;
 
 public class Musica {
 
-    private Integer id_musica;
+    private Integer idMusica;
     private String nome;
-    private Integer duracao_sec;
-    private Integer id_album;
-    private Integer id_artista;
+    private Integer duracaoSec;
+    private Integer idAlbum;
+    private Integer idArtista;
+    private Artista artista;
+    private Albuns album;
 
-    public Integer getId_musica() {
-        return id_musica;
+    public Artista getArtista() {
+        return artista;
     }
 
-    public void setId_musica(Integer id_musica) {
-        this.id_musica = id_musica;
+    public void setArtista(Artista artista) {
+        this.artista = artista;
+    }
+
+    public Albuns getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Albuns album) {
+        this.album = album;
+    }
+
+    public Integer getIdMusica() {
+        return idMusica;
+    }
+
+    public void setIdMusica(Integer idMusica) {
+        this.idMusica = idMusica;
     }
 
     public String getNome() {
@@ -24,27 +42,40 @@ public class Musica {
         this.nome = nome;
     }
 
-    public Integer getDuracao_sec() {
-        return duracao_sec;
+    public Integer getDuracaoSec() {
+        return duracaoSec;
     }
 
-    public void setDuracao_sec(Integer duracao_sec) {
-        this.duracao_sec = duracao_sec;
+    public void setDuracaoSec(Integer duracaoSec) {
+        this.duracaoSec = duracaoSec;
     }
 
-    public Integer getId_album() {
-        return id_album;
+    public Integer getIdAlbum() {
+        return idAlbum;
     }
 
-    public void setId_album(Integer id_album) {
-        this.id_album = id_album;
+    public void setIdAlbum(Integer idAlbum) {
+        this.idAlbum = idAlbum;
     }
 
-    public Integer getId_artista() {
-        return id_artista;
+    public Integer getIdArtista() {
+        return idArtista;
     }
 
-    public void setId_artista(Integer id_artista) {
-        this.id_artista = id_artista;
+    public void setIdArtista(Integer idArtista) {
+        this.idArtista = idArtista;
+    }
+
+    @Override
+    public String toString() {
+        return "Musica{" +
+                "idMusica=" + idMusica +
+                ", nome='" + nome + '\'' +
+                ", duracaoSec=" + duracaoSec +
+                ", idAlbum=" + idAlbum +
+                ", idArtista=" + idArtista +
+                ", artista=" + artista +
+                ", album=" + album +
+                '}';
     }
 }

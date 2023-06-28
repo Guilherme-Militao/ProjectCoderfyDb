@@ -42,9 +42,16 @@ public class UsuarioServices {
     public List<Usuario> ListarUsers(){
         List<Usuario> lista = usuarioRepository.listarUsuarios();
         //lista.stream().forEach(System.out::println);
-
         return lista;
+    }
 
+    public void mostraUsers(List<Usuario> listaUser){
+
+        System.out.println(listaUser.size());
+
+        for (Usuario u: listaUser) {
+            System.out.println(u.toString());
+        }
     }
 
     public int verificaUsuario(List<Usuario> listUsers,String senha, Integer id) {

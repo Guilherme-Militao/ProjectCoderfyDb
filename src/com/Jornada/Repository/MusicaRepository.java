@@ -1,7 +1,6 @@
 package com.Jornada.Repository;
 
 import com.Jornada.Entity.Musica;
-import com.Jornada.Entity.Usuario;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -31,11 +30,11 @@ public class MusicaRepository {
             while(res.next()){
 
                 Musica m = new Musica();
-                m.setId_musica(res.getInt("id_musica"));
+                m.setIdMusica(res.getInt("id_musica"));
                 m.setNome(res.getString("nome"));
-                m.setDuracao_sec(res.getInt("duracao_sec"));
-                m.setId_album(res.getInt("id_album"));
-                m.setId_artista(res.getInt("id_artista"));
+                m.setDuracaoSec(res.getInt("duracao_sec"));
+                m.setIdAlbum(res.getInt("id_album"));
+                m.setIdArtista(res.getInt("id_artista"));
 
                 listaMusicas.add(m);
 

@@ -1,19 +1,29 @@
 package com.Jornada.Entity;
 
+import java.util.Date;
+
 public class Albuns {
 
-    private Integer id_album;
+    private Integer idAlbum;
     private String titulo;
-    private Integer ano;
+    private Date ano;
 
-    private Integer id_artista;
-
-    public Integer getId_album() {
-        return id_album;
+    public Date getAno() {
+        return ano;
     }
 
-    public void setId_album(Integer id_album) {
-        this.id_album = id_album;
+    public void setAno(Date ano) {
+        this.ano = ano;
+    }
+
+    private Integer idArtista;
+
+    public Integer getIdAlbum() {
+        return idAlbum;
+    }
+
+    public void setIdAlbum(Integer idAlbum) {
+        this.idAlbum = idAlbum;
     }
 
     public String getTitulo() {
@@ -24,19 +34,20 @@ public class Albuns {
         this.titulo = titulo;
     }
 
-    public Integer getAno() {
-        return ano;
+    public Integer getIdArtista() {
+        return idArtista;
     }
 
-    public void setAno(Integer ano) {
-        this.ano = ano;
+    public void setIdArtista(Integer idArtista) {
+        this.idArtista = idArtista;
     }
 
-    public Integer getId_artista() {
-        return id_artista;
-    }
-
-    public void setId_artista(Integer id_artista) {
-        this.id_artista = id_artista;
+    @Override
+    public String toString() {
+        return "Albuns{" +
+                "idAlbum=" + idAlbum +
+                ", titulo='" + titulo + '\'' +
+                ", ano='" + ano + '\'' +
+                '}';
     }
 }

@@ -2,11 +2,12 @@ package com.Jornada.View;
 
 import com.Jornada.Entity.Playlist;
 import com.Jornada.Entity.Usuario;
+import com.Jornada.Services.MusicaServices;
+import com.Jornada.Services.PlaylistMusicaServices;
 import com.Jornada.Services.PlaylistServices;
 import com.Jornada.Services.UsuarioServices;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 
 public class Sistema {
@@ -16,6 +17,8 @@ public class Sistema {
 
         UsuarioServices usuarioServices = new UsuarioServices();
         PlaylistServices playlistServices = new PlaylistServices();
+        MusicaServices musicaServices = new MusicaServices();
+        PlaylistMusicaServices playlistMusicaServices = new PlaylistMusicaServices();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -72,8 +75,13 @@ public class Sistema {
                         int res = usuarioServices.verificaUsuario( usuarioServices.ListarUsers(),senha,id);
 
                         if(res!=0){
+
+                            //metodo teste de usuarios
+                            //usuarioServices.mostraUsers(usuarioServices.ListarUsers());
+
+
                             int op = 0;
-                            while (op != 7) {
+                            while (op != 8) {
                                 System.out.println("""
                                             1- Atualizar dados do usuário
                                             2- Excluir usuário
@@ -81,8 +89,10 @@ public class Sistema {
                                             4- Criar playlist
                                             5- Listar playlists
                                             6- Excluir playlist
-                                            7- sair""");
+                                            7- Inserir Musicas em Playlist
+                                            8- sair""");
                                 op = Integer.parseInt(scanner.nextLine());
+
                                 switch (op) {
 
                                     case 1 -> { //Atualizar dados do usuário
@@ -119,10 +129,11 @@ public class Sistema {
                                         String confirmaSenha = scanner.nextLine();
 
                                         if(confirmaSenha.equals(senha)){
-                                            if(usuarioServices.DeleteUser(id))
+                                            if(usuarioServices.DeleteUser(id)){
                                                 System.out.println("Usuario excluido com sucesso!");
+                                                op = 8;
+                                            }
 
-                                            op = 7;
                                         }else{
                                             System.out.println("Erro");
                                         }
@@ -136,14 +147,14 @@ public class Sistema {
                                     }
                                     case 4 -> { //Criar playlist
 
-                                        Playlist p= new Playlist();
-
-                                        System.out.println("Digite o nome para playlist:: ");
-                                        p.setNome(scanner.nextLine());
-
-                                        p.setId_usuario(id);
-
                                         try {
+                                            Playlist p= new Playlist();
+
+                                            System.out.println("Digite o nome para playlist:: ");
+                                            p.setNome(scanner.nextLine());
+
+                                            p.setIdUsuario(id);
+
                                             playlistServices.criarPlaylist(id, p);
                                             System.out.println("Playlist cadastrado com sucesso!");
 
@@ -154,25 +165,95 @@ public class Sistema {
                                     }
                                     case 5->{ //Listar playlists
 
-                                        playlistServices.ListarPlaylists();
+                                        if(!playlistServices.isEmpty()){
+
+                                            try{
+                                                playlistServices.ListarPlaylists();
+                                                System.out.println("Informe a Playlist que deseja informação: ");
+                                                Integer idP = Integer.parseInt(scanner.nextLine());
+
+                                                playlistMusicaServices.listar(idP);
+
+
+                                            }catch(Exception e){
+                                                e.getMessage();
+                                            }
+
+                                        }else{
+
+                                            System.out.println("Nenhuma playlist encontrada: ");
+
+                                        }
+
 
                                     }
                                     case 6->{ //Excluir Playlist
 
-                                        playlistServices.ListarPlaylists();
+
+                                        if (!playlistServices.isEmpty()){
+                                            playlistServices.ListarPlaylists();
 
                                             System.out.println("Informe o id da Playlist: ");
                                             Integer idPlaylist = Integer.parseInt(scanner.nextLine());
 
+                                            System.out.println(playlistMusicaServices.exluir(idPlaylist));
                                             if(playlistServices.excluirPlaylist(idPlaylist))
                                                 System.out.println("Playlist excluida com Sucesso! ");
+                                        }else{
+                                            System.out.println("Nenhuma playliste encontrada!");
+
+                                        }
 
 
                                     }
-                                    case 7->{ //sair
+                                    case 7->{ //Listar musicas
+
+                                        if(musicaServices.isEmpty()){
+                                            System.out.println("Erro, Musicas indisponiveis... :(");
+                                        }else if(playlistServices.isEmpty())
+                                        System.out.println("Nenhuma playlist encontrada... :(");
+                                        else {
+
+                                            try{
+                                                Integer opIn=0;
+                                                while(opIn!= -1) {
+                                                    playlistServices.ListarPlaylists();
+                                                    System.out.println("Insira o id da playlist desejada: ");
+                                                    Integer idP = Integer.parseInt(scanner.nextLine());
+
+                                                    musicaServices.listaMusicas();
+                                                    System.out.println("Informe o id da Musica desejada: ");
+                                                    Integer idM = Integer.parseInt(scanner.nextLine());
+
+                                                    if(playlistMusicaServices.insereMusica(idP,idM)){
+
+                                                        System.out.println("Feito, musica adicionada com sucesso!");
+                                                        System.out.println("Deseja Realiziar outra Inserção?" +
+                                                                "s = Sim " +
+                                                                "n = Não");
+                                                        String opS = scanner.nextLine();
+
+                                                        if(opS.equalsIgnoreCase("s")){
+                                                            opIn=0;
+                                                        }else{
+                                                            opIn=-1;
+                                                        }
+                                                    }else{
+                                                        System.out.println("Erro ao adicionar: :(");
+                                                    }
+
+                                                }
+                                            }catch (Exception e){
+                                                e.getMessage();
+                                            }
+
+                                        }
+
+
+                                    }
+                                    case 8->{ //sair
                                         System.out.println("Estamos te direcionando para o menu inicial...");
                                         System.out.println();
-
                                     }
 
                                 }
@@ -197,6 +278,7 @@ public class Sistema {
                 }
             }
         }
+
     }
 
 }

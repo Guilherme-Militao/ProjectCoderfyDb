@@ -28,12 +28,16 @@ public class PlaylistServices {
     public void ListarPlaylists(){
         List<Playlist> lista = playlistRepository.listarPlaylist();
 
-        for (Playlist p: lista) {
-            System.out.println("Id da playlist -> " + p.getIdPlaylist());
-            System.out.println("Nome da playlist -> " + p.getNome());
-            System.out.println();
-        }
+            for (Playlist p: lista) {
+                System.out.println("Id da playlist -> " + p.getIdPlaylist());
+                System.out.println("Nome da playlist -> " + p.getNome());
+                System.out.println();
+            }
 
+    }
+
+    public boolean isEmpty(){
+       return playlistRepository.listarPlaylist().size()==0 ?true : false;
     }
 
     public boolean excluirPlaylist(Integer idPlaylist){
